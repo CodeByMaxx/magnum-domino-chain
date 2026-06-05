@@ -1,0 +1,3 @@
+/home/markus/devel/projects/magnum-domino-chain/build/CMakeFiles/domino.dir
+/home/markus/devel/projects/magnum-domino-chain/build/CMakeFiles/edit_cache.dir
+/home/markus/devel/projects/magnum-domino-chain/build/CMakeFiles/rebuild_cache.dir
