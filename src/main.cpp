@@ -35,6 +35,7 @@ public:
 
 private:
     void drawEvent() override;
+    void saveScreenshot(const std::string& filename, const Vector2i& size);
 
     struct Domino {
         btRigidBody* body;
@@ -53,8 +54,11 @@ private:
     btSequentialImpulseConstraintSolver* _solver{};
 
     std::vector<btCollisionShape*> _shapes;
-};
 
+    int _frame = 0;
+    const int _captureEvery = 50;
+};
+  
 /* ===================== INIT ===================== */
 
 DominoExample::DominoExample(const Arguments& arguments)
@@ -196,7 +200,15 @@ DominoExample::~DominoExample()
 }
 
 /* ===================== RENDER ===================== */
+void DominoExample::saveScreenshot(const std::string& filename,
+                                   const Vector2i& size)
+{
+  Magnum::Image2D image = GL::defaultFramebuffer.read(
+      Range2Di{{0, 0}, size}, Image2D{PixelFormat::RGBA8Unorm});
 
+  stbi_write_png(filename.c_str(), size.x(), size.y(), 4, image.data(),
+                 size.x() * 4);
+}
 void DominoExample::drawEvent()
 {
   GL::defaultFramebuffer.clear(GL::FramebufferClear::Color |
@@ -230,6 +242,15 @@ void DominoExample::drawEvent()
         .setNormalMatrix(model.normalMatrix())
         .setProjectionMatrix(viewProj)
         .draw(_mesh);
+  }
+
+  _frame++;
+
+  if (_frame % _captureEvery == 0) {
+    char name[64];
+    std::snprintf(name, 64, "frame_%05d.png", _frame);
+
+    saveScreenshot(name, windowSize());
   }
 
   swapBuffers();
