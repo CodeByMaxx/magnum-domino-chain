@@ -59,8 +59,6 @@ private:
     const int _captureEvery = 50;
 };
   
-/* ===================== INIT ===================== */
-
 DominoExample::DominoExample(const Arguments& arguments)
     : Platform::Application{arguments,
         Configuration{}.setTitle("Real Domino Circle Physics")}
@@ -77,7 +75,6 @@ DominoExample::DominoExample(const Arguments& arguments)
             200.0f
         );
 
-    /* ===== BULLET WORLD ===== */
     _config = new btDefaultCollisionConfiguration();
     _dispatcher = new btCollisionDispatcher(_config);
     _broadphase = new btDbvtBroadphase();
@@ -92,12 +89,10 @@ DominoExample::DominoExample(const Arguments& arguments)
 
     _world->setGravity(btVector3(0, -9.81f, 0));
 
-    /* stabiler Solver (wichtig!) */
     _world->getSolverInfo().m_numIterations = 60;
     _world->getSolverInfo().m_splitImpulse = true;
     _world->getSolverInfo().m_erp = 0.8f;
 
-    /* ===== GROUND ===== */
     auto* groundShape = new btStaticPlaneShape(btVector3(0,1,0), 0);
     _shapes.push_back(groundShape);
 
@@ -113,11 +108,9 @@ DominoExample::DominoExample(const Arguments& arguments)
 
     _world->addRigidBody(groundBody);
 
-    /* ===== DOMINO ===== */
     auto* boxShape = new btBoxShape(btVector3(0.12f, 0.6f, 0.25f));
     _shapes.push_back(boxShape);
 
-    /* Abstand zwischen Steinen (wichtig für echte Kettenreaktion) */
     const float spacing = 0.22f;
 
     constexpr int Count = 140;
@@ -126,29 +119,21 @@ DominoExample::DominoExample(const Arguments& arguments)
     for (int i = 0; i < Count; ++i) {
       float a = float(i) / float(Count) * 2.0f * 3.1415926f;
 
-      /* ===== Kreisposition ===== */
       float x = Radius * std::cos(a);
       float z = Radius * std::sin(a);
 
-      /* ===== Tangente (Richtung entlang Kreis) ===== */
       float tx = -std::sin(a);
       float tz = std::cos(a);
 
-      /* normalisieren */
       float len = std::sqrt(tx * tx + tz * tz);
       tx /= len;
       tz /= len;
 
-      /* ===== Bullet Transform ===== */
       btTransform t;
       t.setIdentity();
 
-      /* leicht über Boden (halbe Höhe) */
       t.setOrigin(btVector3(x, 0.6f, z));
 
-      /* ===== WICHTIG: korrekte Ausrichtung =====
-         +π/2 Offset weil Cube in Magnum +X forward ist
-      */
       float angle = std::atan2(tx, tz) + 1.57079632679f;
 
       btQuaternion rot;
@@ -156,7 +141,6 @@ DominoExample::DominoExample(const Arguments& arguments)
 
       t.setRotation(rot);
 
-      /* ===== Physik ===== */
       btVector3 inertia(0, 0, 0);
       boxShape->calculateLocalInertia(1.0f, inertia);
 
@@ -179,14 +163,11 @@ DominoExample::DominoExample(const Arguments& arguments)
       _dominoes.push_back({body});
 }
 
-/*==== START IMPULSE ===== */
 btRigidBody* first = _dominoes.front().body;
 first->activate(true);
 
 first->applyImpulse(btVector3(0.0f, 0.0f, 2.5f), btVector3(0.0f, 0.6f, 0.0f));
 }
-
-/* ===================== CLEANUP ===================== */
 
 DominoExample::~DominoExample()
 {
@@ -199,7 +180,6 @@ DominoExample::~DominoExample()
   delete _config;
 }
 
-/* ===================== RENDER ===================== */
 void DominoExample::saveScreenshot(const std::string& filename,
                                    const Vector2i& size)
 {
