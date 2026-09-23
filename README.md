@@ -1,214 +1,133 @@
 # Magnum Domino Chain
 
-A graphical **domino chain simulation** that demonstrates the propagation of motion through a sequence of connected dominoes.
+A C++ domino-chain simulation rendered with the Magnum graphics engine.
 
-The project combines simulation logic with real-time graphical rendering to visualize the chain reaction.
-
-## Overview
-
-The simulation starts with a sequence of dominoes positioned in the scene.
-
-When the first domino falls, its movement can cause the following domino to fall, producing a chain reaction through the entire sequence.
-
-The project is primarily focused on simulation, visualization and experimenting with graphical parameters.
-
----
+The project demonstrates a simple physics-based domino simulation where falling dominoes trigger the next pieces in the chain.
 
 ## Features
 
 * Domino chain simulation
-* Real-time graphical visualization
-* Configurable simulation parameters
-* Animated domino states
-* Example simulation frames
-* Command-line configuration
-* Graphical rendering
+* Real-time 3D rendering
+* C++ implementation
+* Magnum graphics engine
+* CMake build system
+* Visual simulation of the chain reaction
 
----
+## Technology Stack
+
+* **C++**
+* **Magnum**
+* **CMake**
+
+## How It Works
+
+The simulation starts with a sequence of dominoes.
+
+When one domino falls, it can collide with the next domino and trigger another fall. This creates a chain reaction that propagates through the scene.
+
+```text
+Domino 1
+   │
+   ▼
+Domino 2
+   │
+   ▼
+Domino 3
+   │
+   ▼
+Domino 4
+   │
+   ▼
+Chain Reaction
+```
 
 ## Project Structure
 
 ```text
 magnum-domino-chain/
-│
-├── ...
-├── frame_00050.png
-├── frame_01000.png
-├── frame_04000.png
-├── frame_05000.png
-│
+├── src/
+├── modules/
+├── CMakeLists.txt
 └── README.md
 ```
 
-The repository also contains the source and build files required by the application.
-
----
-
-## Requirements
-
-A C++ development environment and the libraries required by the project are required to build the application.
-
-The project uses a graphics library for rendering the simulation.
-
----
-
 ## Build
 
-Build the project using the build configuration included in the repository.
+Create a build directory:
 
-After compiling, start the generated application to launch the graphical simulation.
+```bash
+mkdir build
+cd build
+```
 
-The exact executable location depends on the selected build configuration.
+Configure the project:
 
----
+```bash
+cmake ..
+```
+
+Build the application:
+
+```bash
+cmake --build .
+```
+
+## Run
+
+After building the project, start the generated executable from the build directory.
+
+The exact executable location depends on the configured CMake build.
+
+## Results
+
+The following screenshots show different stages of the domino simulation.
+
+### Frame 50
+
+![Domino Chain – Frame 50](frame_00050.png)
+
+### Frame 1000
+
+![Domino Chain – Frame 1000](frame_01000.png)
+
+### Frame 4000
+
+![Domino Chain – Frame 4000](frame_04000.png)
+
+### Frame 5000
+
+![Domino Chain – Frame 5000](frame_05000.png)
 
 ## Simulation
 
-The application creates a chain of dominoes and simulates their movement.
+The main visual effect of the project is the propagation of the domino chain reaction.
 
-The general sequence is:
+The screenshots show how the simulation develops over time as more dominoes fall.
 
-```text
-Initial State
-     │
-     ▼
-First Domino Falls
-     │
-     ▼
-Collision With Next Domino
-     │
-     ▼
-Next Domino Falls
-     │
-     ▼
-Chain Reaction
-     │
-     ▼
-Complete Domino Chain
-```
+## Magnum
 
-The simulation updates the graphical scene continuously while the dominoes move and interact.
+The project uses the **Magnum** graphics engine for rendering and application functionality.
 
----
+Magnum provides the graphics framework used to display the 3D simulation.
 
-## Simulation Parameters
+## Possible Improvements
 
-The project exposes configuration options for the simulation.
+Possible future extensions include:
 
-These parameters can be used to experiment with aspects such as:
+* More complex domino arrangements
+* Adjustable simulation parameters
+* Additional camera controls
+* Different physical layouts
+* More detailed visual effects
+* Interactive domino placement
 
-* domino positioning
-* chain dimensions
-* simulation timing
-* rendering
-* physical behavior
+## Project Purpose
 
-The available options depend on the current application version.
+The project is a compact demonstration of C++ graphics programming and real-time simulation using Magnum.
 
----
-
-## Screenshots
-
-The repository contains several captured simulation frames:
-
-### Early simulation
-
-`frame_00050.png`
-
-### Chain reaction
-
-`frame_01000.png`
-
-### Advanced state
-
-`frame_04000.png`
-
-### Final state
-
-`frame_05000.png`
-
-These frames demonstrate the progression of the domino simulation over time.
-
----
-
-## Graphics
-
-The project uses a graphical rendering library to display the simulation.
-
-The renderer is responsible for:
-
-* displaying the dominoes
-* updating their positions
-* rendering the scene
-* visualizing the simulation state
-
-The graphical component makes it possible to observe the chain reaction directly rather than only inspecting numerical simulation output.
-
----
-
-## Performance
-
-Simulation performance depends on:
-
-* number of dominoes
-* scene complexity
-* rendering configuration
-* simulation parameters
-* available hardware
-
-For performance comparisons, use the same simulation configuration and hardware environment.
-
----
-
-## Project Goals
-
-The project serves as an experiment in:
-
-* real-time simulation
-* graphical programming
-* object movement
-* collision/interaction handling
-* animation
-* simulation performance
-
-The domino chain provides a simple visual example of how local interactions can produce a larger sequential process.
-
----
-
-## Screenshots and Examples
-
-Example frames included in the repository:
-
-```text
-frame_00050.png
-frame_01000.png
-frame_04000.png
-frame_05000.png
-```
-
-They can be used to compare different stages of the simulation.
-
----
-
-## Project Status
-
-The project contains a graphical domino-chain simulation together with example output frames.
-
-Possible future improvements include:
-
-* additional chain configurations
-* improved physical parameters
-* interactive controls
-* additional camera options
-* performance benchmarks
-* automated simulation tests
-* more complex domino layouts
-
----
+It combines a simple physical interaction with a visually understandable 3D result.
 
 ## Author
 
 **Markus**
-
-Simulation / C++ graphics project.
 
