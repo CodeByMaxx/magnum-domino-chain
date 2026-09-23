@@ -1,265 +1,156 @@
 # Magnum Domino Chain
 
-A C/C++ physics simulation demonstrating a chain of falling dominoes using **Bullet Physics** and the **Magnum** graphics engine.
+A real-time **domino chain simulation** built with **C++**, **Magnum**, and **Bullet Physics**.
 
-The project combines rigid-body physics with real-time 3D visualization.
+The project demonstrates rigid-body physics, collision detection, and real-time 3D rendering by simulating a chain of falling dominoes.
 
-## Overview
+---
 
-The simulation creates a chain of dominoes and uses a physics engine to calculate their movement and collisions.
+## Features
+
+* 🧱 Real-time domino physics simulation
+* ⚙️ Bullet Physics rigid-body simulation
+* 🎨 3D rendering with Magnum
+* 💥 Collision detection between dominoes
+* 🔄 Configurable domino chain
+* 🖥️ Interactive real-time visualization
+
+---
+
+## Technologies
+
+| Technology         | Purpose                                    |
+| ------------------ | ------------------------------------------ |
+| **C++**            | Application and simulation logic           |
+| **Magnum**         | 3D rendering and application framework     |
+| **Bullet Physics** | Rigid-body physics and collision detection |
+| **OpenGL**         | Graphics rendering                         |
+| **CMake**          | Build system                               |
+
+---
+
+## Architecture
+
+The simulation consists of three main components:
 
 ```text
-Domino Chain
-     |
-     v
-Bullet Physics
-     |
-     +------------------+
-     |                  |
-     v                  v
-Rigid Body        Collision Detection
-     |                  |
-     +--------+---------+
-              |
-              v
-        Physics Update
-              |
-              v
-       Magnum Rendering
+                  ┌──────────────────┐
+                  │  Domino Setup    │
+                  │  / Initialization│
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Bullet Physics   │
+                  │ Simulation       │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │ Magnum Rendering │
+                  │ / OpenGL         │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                    Real-time View
 ```
 
-The project is mainly intended as an example of integrating a physics simulation with a C++ rendering framework.
+Bullet Physics is responsible for the physical simulation while Magnum handles rendering and application-level graphics.
 
 ---
 
-## Simulation
+## Physics Simulation
 
-The dominoes are simulated as rigid bodies.
+Each domino is represented as a rigid body.
 
-When the first domino falls, its collision with the next domino transfers momentum through the chain:
+The simulation calculates:
 
-```text
-   |      |      |      |      |
-   |      |      |      |      |
-   |      |      |      |      |
-   |      |      |      |      |
-   +      +      +      +      +
-
-      ↓
-
-   /      |      |      |      |
-  /       |      |      |      |
- /        |      |      |      |
-          +      +      +      +
-
-                 ↓
-
-   /      /      /      |      |
-  /      /      /       |      |
- /      /      /        |      |
-```
-
-Bullet Physics is responsible for calculating the physical interactions between the dominoes.
-
----
-
-# Screenshots
-
-The following frames show the progression of the domino simulation.
-
-![Bullet Physics Simulation](frame_00050.png)
-
-![Bullet Physics Simulation](frame_01000.png)
-
-![Bullet Physics Simulation](frame_04000.png)
-
-![Bullet Physics Simulation](frame_05000.png)
-
----
-
-# Technology
-
-The project is based on:
-
-* C/C++
-* Bullet Physics
-* Magnum
-* Corrade
-* CMake
-
-### Bullet Physics
-
-Bullet Physics is used for:
-
-* Rigid-body simulation
-* Collision detection
 * Gravity
-* Physical interactions between dominoes
+* Linear and angular movement
+* Collision detection
+* Collision response
+* Friction between objects
 
-### Magnum
-
-Magnum provides the rendering and application framework used to visualize the simulation.
-
-### Corrade
-
-Corrade provides utility functionality used by the Magnum ecosystem.
+When the first domino falls, its collision transfers momentum to the next domino and creates the chain reaction.
 
 ---
 
-# Dependencies
+## Building
 
-Before building this project, **Corrade must be built before Magnum**.
+### Requirements
 
-The project expects the Magnum and Corrade source trees to be available locally.
+* C++ compiler with C++17 support
+* CMake
+* Magnum
+* Bullet Physics
+* OpenGL-compatible graphics environment
 
-A typical directory layout is:
+Clone the repository:
 
-```text
-.
-├── build
-├── CMakeLists.txt
-├── corrade -> ../../corrade/
-├── magnum -> ../../magnum/
-├── modules
-├── README.md
-└── src
+```bash id="a6qf8m"
+git clone https://github.com/CodeByMaxx/magnum-domino-chain.git
+cd magnum-domino-chain
 ```
 
----
+Create a build directory:
 
-# Building Corrade
-
-Clone or provide the Corrade source tree and build it first.
-
-```bash
-cd corrade
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
-
----
-
-# Building Magnum
-
-After Corrade has been built:
-
-```bash
-cd magnum
-mkdir build
-cd build
-
-cmake .. \
-    -DMAGNUM_WITH_SDL2APPLICATION=ON
-
-make
-make install
-```
-
-After Magnum has been built and installed, the domino simulation can be compiled.
-
----
-
-# Building the Project
-
-From the project root:
-
-```bash
+```bash id="r5d3xk"
 mkdir build
 cd build
 ```
 
 Configure the project:
 
-```bash
+```bash id="m2r8sj"
 cmake ..
 ```
 
 Build:
 
-```bash
+```bash id="q7x1nf"
 cmake --build .
 ```
 
 ---
 
-# Running
+## Running
 
-After building the project, start the generated application from the build directory.
+After building the project, start the generated executable from the build directory.
 
-The simulation then visualizes the domino chain and its physical interactions in real time.
-
----
-
-# Project Structure
-
-```text
-magnum-domino-chain
-├── build
-├── CMakeLists.txt
-├── corrade -> ../../corrade/
-├── magnum -> ../../magnum/
-├── modules
-├── src
-├── frame_00050.png
-├── frame_01000.png
-├── frame_04000.png
-├── frame_05000.png
-└── README.md
-```
+The application opens the real-time 3D simulation and visualizes the domino chain reaction.
 
 ---
 
-# Physics Pipeline
+## Project Goals
 
-The basic simulation loop can be summarized as:
+The project was created to explore the interaction between:
 
-```text
-Initialize Scene
-      |
-      v
-Create Domino Rigid Bodies
-      |
-      v
-Apply Gravity
-      |
-      v
-Run Physics Step
-      |
-      v
-Calculate Collisions
-      |
-      v
-Update Transforms
-      |
-      v
-Render Scene
-      |
-      +------> Next Frame
-```
-
-The physics state is updated continuously and the resulting transforms are passed to the rendering system.
-
----
-
-# Project Goals
-
-The project demonstrates several concepts that are useful when developing real-time C++ simulations:
-
+* Real-time rendering
 * Rigid-body physics
 * Collision detection
-* Physics/rendering synchronization
-* 3D visualization
-* Magnum application development
-* Bullet Physics integration
-* CMake-based C++ development
+* C++ application development
+* 3D graphics
+* Simulation-driven visualization
 
-It can also serve as a starting point for more complex physics simulations involving multiple interacting objects.
+It provides a compact example of combining a rendering framework with a physics engine in a real-time application.
 
 ---
 
-# License
+## Future Improvements
 
-See the repository for the applicable project license.
+Possible improvements include:
+
+* [ ] Interactive domino placement
+* [ ] Configurable domino spacing
+* [ ] Different domino layouts
+* [ ] Camera controls
+* [ ] Additional physics parameters
+* [ ] Performance improvements
+* [ ] More complex chain configurations
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.
 
