@@ -1,152 +1,214 @@
 # Magnum Domino Chain
 
-A real-time **domino chain simulation** built with **C++**, **Magnum**, and **Bullet Physics**.
+A graphical **domino chain simulation** that demonstrates the propagation of motion through a sequence of connected dominoes.
 
-The project demonstrates rigid-body physics, collision detection, and real-time 3D rendering by simulating a chain of falling dominoes.
+The project combines simulation logic with real-time graphical rendering to visualize the chain reaction.
+
+## Overview
+
+The simulation starts with a sequence of dominoes positioned in the scene.
+
+When the first domino falls, its movement can cause the following domino to fall, producing a chain reaction through the entire sequence.
+
+The project is primarily focused on simulation, visualization and experimenting with graphical parameters.
+
+---
 
 ## Features
 
-* 🧱 Real-time domino chain simulation
-* ⚙️ Rigid-body physics with Bullet Physics
-* 🎨 3D rendering with Magnum
-* 💥 Collision detection and response
-* 🖥️ Real-time visualization
-* 🔄 Domino chain configuration
+* Domino chain simulation
+* Real-time graphical visualization
+* Configurable simulation parameters
+* Animated domino states
+* Example simulation frames
+* Command-line configuration
+* Graphical rendering
 
-## Technologies
+---
 
-| Technology         | Purpose                                    |
-| ------------------ | ------------------------------------------ |
-| **C++**            | Application and simulation logic           |
-| **Magnum**         | 3D rendering and application framework     |
-| **Bullet Physics** | Rigid-body physics and collision detection |
-| **OpenGL**         | Graphics rendering                         |
-| **CMake**          | Build system                               |
-
-## Architecture
-
-The simulation combines three main components:
+## Project Structure
 
 ```text
-Domino Setup
+magnum-domino-chain/
+│
+├── ...
+├── frame_00050.png
+├── frame_01000.png
+├── frame_04000.png
+├── frame_05000.png
+│
+└── README.md
+```
+
+The repository also contains the source and build files required by the application.
+
+---
+
+## Requirements
+
+A C++ development environment and the libraries required by the project are required to build the application.
+
+The project uses a graphics library for rendering the simulation.
+
+---
+
+## Build
+
+Build the project using the build configuration included in the repository.
+
+After compiling, start the generated application to launch the graphical simulation.
+
+The exact executable location depends on the selected build configuration.
+
+---
+
+## Simulation
+
+The application creates a chain of dominoes and simulates their movement.
+
+The general sequence is:
+
+```text
+Initial State
      │
      ▼
-Bullet Physics
-Simulation
+First Domino Falls
      │
      ▼
-Magnum / OpenGL
-Rendering
+Collision With Next Domino
      │
      ▼
-Real-time 3D View
+Next Domino Falls
+     │
+     ▼
+Chain Reaction
+     │
+     ▼
+Complete Domino Chain
 ```
 
-Bullet Physics handles the physical simulation, while Magnum is used for rendering and application-level graphics.
+The simulation updates the graphical scene continuously while the dominoes move and interact.
 
-## Physics Simulation
+---
 
-Each domino is represented as a rigid body.
+## Simulation Parameters
 
-The simulation includes:
+The project exposes configuration options for the simulation.
 
-* Gravity
-* Linear and angular movement
-* Collision detection
-* Collision response
-* Friction between objects
+These parameters can be used to experiment with aspects such as:
 
-When the first domino falls, its collision transfers momentum to the next domino, creating a chain reaction.
+* domino positioning
+* chain dimensions
+* simulation timing
+* rendering
+* physical behavior
 
-## Building
+The available options depend on the current application version.
 
-### Requirements
+---
 
-* C++ compiler with C++17 support
-* CMake
-* Magnum
-* Corrade
-* Bullet Physics
-* OpenGL-compatible graphics environment
+## Screenshots
 
-### 1. Clone the repository
+The repository contains several captured simulation frames:
 
-```bash
-git clone https://github.com/CodeByMaxx/magnum-domino-chain.git
-cd magnum-domino-chain
-```
+### Early simulation
 
-### 2. Build Corrade
+`frame_00050.png`
 
-Corrade needs to be available before building Magnum.
+### Chain reaction
 
-```bash
-cd corrade
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
+`frame_01000.png`
 
-### 3. Build Magnum
+### Advanced state
 
-```bash
-cd ../../magnum
-mkdir build
-cd build
-cmake .. -DMAGNUM_WITH_SDL2APPLICATION=ON
-cmake --build .
-cmake --install .
-```
+`frame_04000.png`
 
-### 4. Build the project
+### Final state
 
-Return to the project root and create a build directory:
+`frame_05000.png`
 
-```bash
-cd ../..
-mkdir build
-cd build
-cmake ..
-cmake --build .
-```
+These frames demonstrate the progression of the domino simulation over time.
 
-## Results
+---
 
-The repository contains several rendered simulation frames showing the domino chain at different points during the simulation.
+## Graphics
 
-### Simulation frames
+The project uses a graphical rendering library to display the simulation.
 
-![Domino simulation – frame 50](frame_00050.png)
+The renderer is responsible for:
 
-![Domino simulation – frame 1000](frame_01000.png)
+* displaying the dominoes
+* updating their positions
+* rendering the scene
+* visualizing the simulation state
 
-![Domino simulation – frame 4000](frame_04000.png)
+The graphical component makes it possible to observe the chain reaction directly rather than only inspecting numerical simulation output.
 
-![Domino simulation – frame 5000](frame_05000.png)
+---
+
+## Performance
+
+Simulation performance depends on:
+
+* number of dominoes
+* scene complexity
+* rendering configuration
+* simulation parameters
+* available hardware
+
+For performance comparisons, use the same simulation configuration and hardware environment.
+
+---
 
 ## Project Goals
 
-The project was created to explore the interaction between:
+The project serves as an experiment in:
 
-* Real-time rendering
-* Rigid-body physics
-* Collision detection
-* C++ application development
-* 3D graphics
-* Simulation-driven visualization
+* real-time simulation
+* graphical programming
+* object movement
+* collision/interaction handling
+* animation
+* simulation performance
 
-It provides a compact example of combining a rendering framework with a physics engine in a real-time application.
+The domino chain provides a simple visual example of how local interactions can produce a larger sequential process.
 
-## Future Improvements
+---
 
-Possible improvements include:
+## Screenshots and Examples
 
-* [ ] Interactive domino placement
-* [ ] Configurable domino spacing
-* [ ] Different domino layouts
-* [ ] Camera controls
-* [ ] Additional physics parameters
-* [ ] Performance improvements
-* [ ] More complex chain configurations
+Example frames included in the repository:
+
+```text
+frame_00050.png
+frame_01000.png
+frame_04000.png
+frame_05000.png
+```
+
+They can be used to compare different stages of the simulation.
+
+---
+
+## Project Status
+
+The project contains a graphical domino-chain simulation together with example output frames.
+
+Possible future improvements include:
+
+* additional chain configurations
+* improved physical parameters
+* interactive controls
+* additional camera options
+* performance benchmarks
+* automated simulation tests
+* more complex domino layouts
+
+---
+
+## Author
+
+**Markus**
+
+Simulation / C++ graphics project.
 
