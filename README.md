@@ -2,21 +2,16 @@
 
 A real-time **domino chain simulation** built with **C++**, **Magnum**, and **Bullet Physics**.
 
-The project demonstrates rigid-body physics, collision detection, collision response, and real-time 3D rendering by simulating a chain of falling dominoes.
-
----
+The project demonstrates rigid-body physics, collision detection, and real-time 3D rendering by simulating a chain of falling dominoes.
 
 ## Features
 
 * 🧱 Real-time domino chain simulation
-* ⚙️ Bullet Physics rigid-body simulation
+* ⚙️ Rigid-body physics with Bullet Physics
 * 🎨 3D rendering with Magnum
 * 💥 Collision detection and response
-* 🔄 Configurable domino chain
-* 🖥️ Interactive real-time visualization
-* 🌐 OpenGL-based rendering
-
----
+* 🖥️ Real-time visualization
+* 🔄 Domino chain configuration
 
 ## Technologies
 
@@ -28,87 +23,40 @@ The project demonstrates rigid-body physics, collision detection, collision resp
 | **OpenGL**         | Graphics rendering                         |
 | **CMake**          | Build system                               |
 
----
+## Architecture
 
-## Simulation
+The simulation combines three main components:
 
-Each domino is represented as a rigid body inside the Bullet Physics simulation.
+```text
+Domino Setup
+     │
+     ▼
+Bullet Physics
+Simulation
+     │
+     ▼
+Magnum / OpenGL
+Rendering
+     │
+     ▼
+Real-time 3D View
+```
 
-The simulation handles:
+Bullet Physics handles the physical simulation, while Magnum is used for rendering and application-level graphics.
+
+## Physics Simulation
+
+Each domino is represented as a rigid body.
+
+The simulation includes:
 
 * Gravity
-* Linear movement
-* Angular movement
+* Linear and angular movement
 * Collision detection
 * Collision response
 * Friction between objects
 
-When the first domino falls, its collision transfers momentum to the next domino and creates the chain reaction.
-
----
-
-## Architecture
-
-The simulation consists of three main components:
-
-```text
-                   ┌──────────────────┐
-                   │  Domino Setup    │
-                   │ / Initialization │
-                   └────────┬─────────┘
-                            │
-                            ▼
-                   ┌──────────────────┐
-                   │ Bullet Physics   │
-                   │    Simulation    │
-                   └────────┬─────────┘
-                            │
-                            ▼
-                   ┌──────────────────┐
-                   │ Magnum Rendering │
-                   │    / OpenGL      │
-                   └────────┬─────────┘
-                            │
-                            ▼
-                      Real-time View
-```
-
-**Bullet Physics** is responsible for the physical simulation, while **Magnum** handles rendering and application-level graphics.
-
----
-
-## Simulation Examples
-
-Examples captured from the Bullet Physics simulation:
-
-<table>
-  <tr>
-    <td align="center">
-      <img src="./frame_00050.png" alt="Domino simulation frame 50">
-      <br>
-      <b>Initial Chain Reaction</b>
-    </td>
-    <td align="center">
-      <img src="./frame_01000.png" alt="Domino simulation frame 1000">
-      <br>
-      <b>Chain Reaction</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="./frame_04000.png" alt="Domino simulation frame 4000">
-      <br>
-      <b>Simulation Progress</b>
-    </td>
-    <td align="center">
-      <img src="./frame_05000.png" alt="Domino simulation frame 5000">
-      <br>
-      <b>Simulation Result</b>
-    </td>
-  </tr>
-</table>
-
----
+When the first domino falls, its collision transfers momentum to the next domino, creating a chain reaction.
 
 ## Building
 
@@ -121,13 +69,16 @@ Examples captured from the Bullet Physics simulation:
 * Bullet Physics
 * OpenGL-compatible graphics environment
 
-### Dependencies
+### 1. Clone the repository
 
-The project uses **Magnum** and **Corrade** as its rendering and utility libraries.
+```bash
+git clone https://github.com/CodeByMaxx/magnum-domino-chain.git
+cd magnum-domino-chain
+```
 
-For building Magnum and Corrade from source, obtain the corresponding projects and build **Corrade before Magnum**.
+### 2. Build Corrade
 
-### Build Corrade
+Corrade needs to be available before building Magnum.
 
 ```bash
 cd corrade
@@ -137,78 +88,42 @@ cmake ..
 cmake --build .
 ```
 
-### Build Magnum
+### 3. Build Magnum
 
 ```bash
-cd magnum
+cd ../../magnum
 mkdir build
 cd build
-cmake .. \
-  -DMAGNUM_WITH_SDL2APPLICATION=ON
-
-make
-make install
+cmake .. -DMAGNUM_WITH_SDL2APPLICATION=ON
+cmake --build .
+cmake --install .
 ```
 
-After Magnum and Corrade have been built, the project itself can be compiled.
+### 4. Build the project
 
----
-
-## Build the Project
-
-Clone the repository:
+Return to the project root and create a build directory:
 
 ```bash
-git clone https://github.com/CodeByMaxx/magnum-domino-chain.git
-cd magnum-domino-chain
-```
-
-Create a build directory:
-
-```bash
+cd ../..
 mkdir build
 cd build
-```
-
-Configure the project:
-
-```bash
 cmake ..
-```
-
-Build:
-
-```bash
 cmake --build .
 ```
 
----
+## Results
 
-## Project Structure
+The repository contains several rendered simulation frames showing the domino chain at different points during the simulation.
 
-```text
-magnum-domino-chain
-│
-├── build
-├── CMakeLists.txt
-├── corrade
-├── magnum
-├── modules
-├── src
-└── README.md
-```
+### Simulation frames
 
-The `corrade` and `magnum` directories are used as dependencies for the project.
+![Domino simulation – frame 50](frame_00050.png)
 
----
+![Domino simulation – frame 1000](frame_01000.png)
 
-## Running
+![Domino simulation – frame 4000](frame_04000.png)
 
-After building the project, start the generated executable from the build directory.
-
-The application opens the real-time 3D simulation and visualizes the domino chain reaction.
-
----
+![Domino simulation – frame 5000](frame_05000.png)
 
 ## Project Goals
 
@@ -223,8 +138,6 @@ The project was created to explore the interaction between:
 
 It provides a compact example of combining a rendering framework with a physics engine in a real-time application.
 
----
-
 ## Future Improvements
 
 Possible improvements include:
@@ -236,10 +149,4 @@ Possible improvements include:
 * [ ] Additional physics parameters
 * [ ] Performance improvements
 * [ ] More complex chain configurations
-
----
-
-## License
-
-This project is licensed under the **MIT License**.
 
